@@ -1,0 +1,188 @@
+{
+  "info": {
+    "name": "DimDim - CRUD completo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5080"
+    },
+    {
+      "key": "clienteId",
+      "value": "1"
+    },
+    {
+      "key": "contaId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Criar cliente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/clientes",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Mateus Teni Pierro\",\n  \"email\": \"mateus@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"clienteId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listar clientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/clientes"
+      }
+    },
+    {
+      "name": "Consultar cliente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/clientes/{{clienteId}}"
+      }
+    },
+    {
+      "name": "Atualizar cliente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/clientes/{{clienteId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Mateus Pierro Atualizado\",\n  \"email\": \"mateus.atualizado@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Criar conta",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/contas",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numero\": \"555125-01\",\n  \"saldo\": 1000,\n  \"clienteId\": {{clienteId}}\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"contaId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listar contas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/contas"
+      }
+    },
+    {
+      "name": "Consultar conta",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/contas/{{contaId}}"
+      }
+    },
+    {
+      "name": "Atualizar conta",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/contas/{{contaId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numero\": \"555125-01\",\n  \"saldo\": 2500,\n  \"clienteId\": {{clienteId}}\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Rendimento",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/contas/{{contaId}}/rendimento"
+      }
+    },
+    {
+      "name": "Excluir conta",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/contas/{{contaId}}"
+      }
+    },
+    {
+      "name": "Excluir cliente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/clientes/{{clienteId}}"
+      }
+    }
+  ]
+}

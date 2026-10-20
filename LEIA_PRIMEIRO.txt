@@ -1,0 +1,24 @@
+COMECE AQUI - DIMDIM PIPELINES
+Mateus Teni Pierro - RM555125
+
+1. Extraia o ZIP em Downloads. Nao abra o projeto de dentro do ZIP.
+2. Abra a pasta DimDimPipelines (ela contem DimDimPipelines.sln).
+3. Clique na barra de endereco do Explorador, digite powershell e pressione Enter.
+4. Execute:
+   dotnet --list-sdks
+   dotnet restore
+   dotnet test --configuration Release
+   dotnet run --project .\src\DimDim.Api
+5. Abra http://localhost:5080/swagger
+6. Para parar: Ctrl+C no PowerShell.
+
+O teste local usa SQLite sem instalar banco. A ENTREGA exige Azure SQL e App Service
+na nuvem. A validacao local e apenas a primeira etapa.
+
+GUIA COMPLETO: README.md e docs/01-PASSO-A-PASSO.md.
+VIDEO: docs/02-ROTEIRO-VIDEO.md.
+CHECKLIST: docs/03-CHECKLIST-ENTREGA.md.
+
+Este pacote contem codigo e instrucoes. Organizacao, projeto Azure DevOps, Task,
+politicas, recursos Azure, pipelines, PR, video e PDF final precisam ser executados
+na sua conta. Nao ha links ou evidencias inventados.

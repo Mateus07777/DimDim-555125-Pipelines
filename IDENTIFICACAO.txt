@@ -1,0 +1,6 @@
+Grupo sugerido: DimDim Flow
+Integrante: Mateus Teni Pierro
+RM: 555125
+Disciplina: DevOps Tools & Cloud Computing
+Atividade: 3o Checkpoint 2o Semestre - Pipelines CI/CD
+Projeto original criado para este checkpoint; nao e projeto de Sprint.

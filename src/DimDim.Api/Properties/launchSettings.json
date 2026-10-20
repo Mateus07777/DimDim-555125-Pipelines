@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "DimDim.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DatabaseProvider": "Sqlite",
+        "ConnectionStrings__DimDim": "Data Source=dimdim.local.db"
+      }
+    }
+  }
+}

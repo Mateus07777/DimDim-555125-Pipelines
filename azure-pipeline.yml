@@ -1,0 +1,58 @@
+trigger:
+  branches:
+    include:
+      - main
+      - feature/*
+# Azure Repos usa branch policy para validacao de PR; configurar no portal.
+variables:
+  buildConfiguration: Release
+pool:
+  vmImage: ubuntu-latest
+steps:
+- task: UseDotNet@2
+  displayName: Instalar SDK .NET 8
+  inputs:
+    packageType: sdk
+    version: 8.0.x
+- task: DotNetCoreCLI@2
+  displayName: Restaurar dependencias
+  inputs:
+    command: restore
+    projects: DimDimPipelines.sln
+- task: DotNetCoreCLI@2
+  displayName: Compilar solucao
+  inputs:
+    command: build
+    projects: DimDimPipelines.sln
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+- task: DotNetCoreCLI@2
+  displayName: Executar testes unitarios e de integracao
+  inputs:
+    command: test
+    projects: tests/DimDim.Tests/DimDim.Tests.csproj
+    arguments: '--configuration $(buildConfiguration) --no-build'
+    publishTestResults: true
+    testRunTitle: DimDim - regras e CRUDs relacionados
+- task: DotNetCoreCLI@2
+  displayName: Publicar API
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: src/DimDim.Api/DimDim.Api.csproj
+    arguments: '--configuration $(buildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)/app'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: ArchiveFiles@2
+  displayName: Gerar pacote da Release
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/app'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: '$(Build.ArtifactStagingDirectory)/drop/DimDim.Api.zip'
+    replaceExistingArchive: true
+- task: PublishBuildArtifacts@1
+  displayName: Publicar artefato para Release classica
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop'
+    ArtifactName: drop
+    publishLocation: Container
